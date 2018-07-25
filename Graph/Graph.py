@@ -23,6 +23,10 @@ import shutil
                     bird/
                     ...
             train/
+                    bear/
+                    bicycle/
+                    bird/
+                    ...
             test/
             originCSV.csv
             trainCSV.csv
@@ -35,12 +39,16 @@ class Graph:
         self.originCsvName="originCSV.csv"
         self.trainCsvName="trainCSV.csv"
         self.testCsvName="testCSV.csv"
+        self.type=('bear','bicycle','bird','car','cow','elk','fox',
+                   'giraffe','horse','koala','lion','monkey','plane',
+                   'puppy','sheep','statue','tiger','tower','train',
+                   'whale','zebra')
 
     def _writeToCSV(self,l,path):
 
         file=open(path,"w+")
         for i in l:
-            file.write(i[0]+','+i[1]+"\n")
+            file.write(str(i[0])+','+str(i[1])+"\n")
 
         file.close()
 
@@ -51,7 +59,7 @@ class Graph:
         for i in lines:
             i = i.strip('\n')
             (path, type) = i.split(',')
-            reList.append([path, type])
+            reList.append([path, int(type)])
 
         csv.close()
         return reList
@@ -80,9 +88,29 @@ class Graph:
         mat=cv2.resize(mat, (h,w),interpolation=cv2.INTER_CUBIC)
         cv2.imwrite(path,mat)
 
+    def _toCsvList(self,l,type,dir):
+        ll=[]
+        for i in l:
+            ll.append([os.path.join(dir,i),type])
+        return ll
+
+    def getTypeId(self,typeStr):
+        if self.type.count(typeStr) <=0:
+            return -1
+        return self.type.index(typeStr)
+
+    def getTypeName(self,id):
+        if id<0 or id >=len(self.type):
+            return None
+
+        return self.type[id]
+
+    def getTypeNum(self):
+        return len(self.type)
+
     def normTrainTest(self,h,w):
-        trainList=self.readTrainCSV()
-        testList=self.readTestCsv()
+        trainList=self.getTrainSet()
+        testList=self.getTestSet()
         for i in trainList:
             self._normGraph(i[0],h,w)
         for i in testList:
@@ -110,8 +138,8 @@ class Graph:
         return matrix
 
     def divideTrainTest(self,originName,trainSize=4/5):
-        dirPath=os.path.join(self.rootDir,originName)
-        if(not (os.path.isdir(dirPath) and os.path.exists(dirPath)) ):
+        originDirPath=os.path.join(self.rootDir,originName)
+        if(not (os.path.isdir(originDirPath) and os.path.exists(originDirPath)) ):
             print("error dirPath")
             return
 
@@ -128,23 +156,48 @@ class Graph:
             shutil.rmtree(trainDirPath)
         if os.path.exists(testDirPath):
             shutil.rmtree(testDirPath)
-        os.mkdir(trainDirPath)
+#        os.mkdir(trainDirPath)
         os.mkdir(testDirPath)
 
-        typeDirs=os.listdir(dirPath)
+
         #print(fileDirs)
 
+        shutil.copytree(originDirPath,trainDirPath)
+
+        typeDirs=os.listdir(trainDirPath)
+        testList=[]
+        trainList=[]
+        for type in typeDirs:
+            typeDir=os.path.join(trainDirPath,type)
+
+            imgs=os.listdir(typeDir)
+            trainImgs=random.sample(imgs,int(len(imgs)*trainSize))
+            testImgs=[i for i in imgs if i not in trainImgs]
+
+            for imgName in testImgs:
+                oldImgPath=os.path.join(typeDir,imgName)
+                newImgPath=os.path.join(testDirPath,imgName)
+                shutil.move(oldImgPath,newImgPath)
+
+            testList.extend(self._toCsvList(testImgs,self.getTypeId(type),testDirPath))
+            trainList.extend(self._toCsvList(trainImgs,self.getTypeId(type),typeDir))
+
+        self._writeToCSV(testList,testCSV)
+        self._writeToCSV(trainList,trainCSV)
+
+        '''
+        typeDirs=os.listdir(originDirPath)
         imgPathList=[]
 
         for type in typeDirs:
-            typeDir=os.path.join(dirPath,type)
+            typeDir=os.path.join(originDirPath,type)
             imgNames=os.listdir(typeDir)
 
             for imgName in imgNames:
                 imgPathList.append([os.path.join(typeDir,imgName),type])
 
         self._writeToCSV(imgPathList,originCSV)
-
+        
         random.shuffle(imgPathList)
         trainList=random.sample(imgPathList,int(len(imgPathList)*trainSize))
         testList=[i for i in imgPathList if i not in trainList]
@@ -154,31 +207,47 @@ class Graph:
 
         self._writeToCSV(trainImgList,trainCSV)
         self._writeToCSV(testImgList,testCSV)
+        '''
 
-        return [trainImgList,testImgList]
+
+        return [trainList,testList]
 
     #返回训练集图像的路径与类型
     #list [[path,type] ...]
-    def readTrainCSV(self):
-        trainCsvPath=os.path.join(self.rootDir,self.trainCsvName)
+    def getTrainSet(self,type=-1):
 
-        return self._readCsv(trainCsvPath)
+        trainCsvPath=os.path.join(self.rootDir,self.trainCsvName)
+        res=self._readCsv(trainCsvPath)
+
+        if type==-1:
+            return res
+        else:
+            res=[i for i in res if i[1]==type]
+
+        return res
+
 
     # 返回测试集图像的路径与类型
     # list [[path,type] ...]
-    def readTestCsv(self):
+    def getTestSet(self):
         testCsvPath = os.path.join(self.rootDir, self.testCsvName)
 
         return self._readCsv(testCsvPath)
 
-    # 返回源图像的路径与类型
-    # list [[path,type] ...]
-    def readOriginCsv(self):
-        originCsvPath = os.path.join(self.rootDir, self.originCsvName)
 
-        return self._readCsv(originCsvPath)
-
-
+'''
 g=Graph(r"E:\ds2018")
 #g.divideTrainTest("ds2018")
-g.normTrainTest(128,128)
+g.normTrainTest(64,64)
+
+count=0
+for path,type in g.getTrainSet():
+    if not os.path.exists(path):
+        print(path+" not exists")
+
+    if cv2.imread(path) is None:
+        print(path+" is None")
+
+    count+=1
+print(count)
+'''

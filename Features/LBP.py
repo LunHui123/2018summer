@@ -26,7 +26,7 @@ class LBP:
 
 
 g=Graph(r"E:\ds2018")
-trainList=g.readTrainCSV()
+trainList=g.getTrainSet()
 lbp=LBP([8],[1])
 features=[]
 print(trainList)

@@ -24,7 +24,7 @@ class GLCM:
 
 
 g=Graph(r"E:\ds2018")
-trainList=g.readTrainCSV()
+trainList=g.getTrainSet()
 glcm=GLCM([1],[0,np.pi/4,np.pi/2,np.pi*3/4])
 features=[]
 print(trainList)
