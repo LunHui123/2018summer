@@ -240,6 +240,7 @@ g=Graph(r"E:\ds2018")
 #g.divideTrainTest("ds2018")
 g.normTrainTest(64,64)
 
+
 count=0
 for path,type in g.getTrainSet():
     if not os.path.exists(path):

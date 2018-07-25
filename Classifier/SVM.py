@@ -112,6 +112,7 @@ for imgPath,type in testList:
     sift=SIFT()
     imgMatrix=g.getGreyGraph(imgPath)
     if imgMatrix is None:
+        print("[test]:"+imgPath)
         continue
     siftFeature=sift.getFeature(imgMatrix)
     featVec=calcFeatVec(siftFeature,centers[type],clusterNum)
