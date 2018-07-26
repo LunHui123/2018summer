@@ -23,6 +23,10 @@ class LBP:
             re[unique[i]] = counts[i]
 
         return re
+
+    def getVecLength(self):
+        return 256
+
     def getFeature(self,imgMat):
 
         feat=feature.local_binary_pattern(imgMat,8,1,method=self.method)

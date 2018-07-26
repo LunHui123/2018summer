@@ -9,6 +9,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.model_selection import GridSearchCV
 from sklearn.cluster import *
 from Features.LBP import LBP
+from Features.HOG import HOG
 
 
 def kMean(clusterNum):
@@ -70,7 +71,7 @@ if not g.isDivided():
     g.divideTrainTest("ds2018")
 
 sift=SIFT()
-clusterNum=50
+clusterNum=21
 '''
 print("calc kmeans")
 centers=kMean(clusterNum)
@@ -101,26 +102,42 @@ trainTypes=trainTypes.astype(np.float32)
 '''
 print("calc kmeans")
 lbp=LBP([8],[1])
+hog=HOG()
 imgList=g.getTrainSet()
-trainTypes,trainDataSift,centers=sift.calcVectorForSvm(imgList,clusterNum,0)
+trainTypes,trainDataSift,centers=sift.calcVectorForSvm(imgList,clusterNum,1)
 print("calc kmeans done")
+
 print("calc lbp")
-trainDataLbp=lbp.getFeatVecForSvm(imgList,0)
+trainDataLbp=lbp.getFeatVecForSvm(imgList,1)
 print("calc lbp done")
+
+print("calc hog")
+trainDataHog=hog.getFeatVecForSvm(imgList,1)
+print("calc hog done")
+
 trainData=np.append(trainDataSift,trainDataLbp,axis=1)
+trainData=np.append(trainData,trainDataHog,axis=1)
+#trainData=trainDataLbp
 print("train type shape:"+str(trainTypes.shape))
 print("train data shape"+str(trainData.shape))
 
 tuned_parameters=[
     {
         'kernel':['rbf'],
-        'gamma':[1e-1,0.05,1e-2,1e-3,1e-4],
+        'gamma':[1e-3,5e-3,10e-3],
         'C':[1,3,5,10,15,100,1000]
     }
 ]
+'''
+tuned_parameters=[
+    {
+        'kernel':['linear'],
+        'C':[1,3,5,10,15,100,1000]
+    }
+]
+'''
 #svm=GridSearchCV(SVC(decision_function_shape='ovo'),tuned_parameters,cv=5)
-#svm=SVR()
-svm=SVC()
+svm=SVC(C=5,gamma=0.0001,kernel='linear')
 svm.fit(trainData,trainTypes)
 #print(svm.best_params_)
 
@@ -130,10 +147,10 @@ print("train done")
 
 #classify
 testList=g.getTestSet()
-scoreData=np.float32([]).reshape((0,clusterNum+256))
+scoreData=np.float32([]).reshape((0,clusterNum+lbp.getVecLength()+hog.getVecLength()))
 scoreType=np.float32([]).reshape((0,1))
 for imgPath,type in testList:
-    print("[test]:"+imgPath +"  "+g.getTypeName(type))
+    #print("[test]:"+imgPath +"  "+g.getTypeName(type))
     sift=SIFT()
     imgMatrix=g.getGreyGraph(imgPath)
     if imgMatrix is None:
@@ -142,7 +159,11 @@ for imgPath,type in testList:
     siftFeature=sift.getFeature(imgMatrix)
     featVecSift=sift.calcFeatVec(siftFeature,centers,clusterNum)
     featVecLbp=lbp.getFeature(imgMatrix)
+    featVecHog=hog.getFeature(imgMatrix)
     featVec=np.append(featVecSift.reshape((1,-1)),featVecLbp.reshape((1,-1)),axis=1)
+    #featVec=featVecLbp
+    featVec=np.append(featVec,featVecHog,axis=1)
+
     scoreData=np.append(scoreData,featVec,axis=0)
     scoreType=np.append(scoreType,np.float32([type]).reshape((1,1)),axis=0)
 
