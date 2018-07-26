@@ -133,7 +133,7 @@ class Graph:
             print("read error")
             return None
 
-        matrix=cv2.cvtColor(matrix,cv2.COLOR_RGB2GRAY)
+        matrix=cv2.cvtColor(matrix,cv2.COLOR_BGR2GRAY)
 
         return matrix
 

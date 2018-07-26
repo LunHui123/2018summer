@@ -16,7 +16,7 @@ class LBP:
         self.method=method
 
     def _calcVec(self,feat):
-        re = np.zeros(256)
+        re = np.zeros(self.getVecLength())
         unique, counts = np.unique(feat, return_counts=True)
         unique=unique.astype(np.int32)
         for i in range(unique.size):
@@ -25,12 +25,12 @@ class LBP:
         return re
 
     def getVecLength(self):
-        return 256
+        return 2**8
 
     def getFeature(self,imgMat):
 
-        feat=feature.local_binary_pattern(imgMat,8,1,method=self.method)
-        return self._calcVec(feat).reshape((1,256))
+        feat=feature.local_binary_pattern(imgMat,8,1,method='uniform')
+        return self._calcVec(feat).reshape((1,-1))
 
     def getFeatVecForSvm(self,imgList,load=0):
         if load==1:
@@ -38,7 +38,7 @@ class LBP:
             return feats
 
         g=Graph(r"E:\ds2018")
-        feats=np.float32([]).reshape((0,256))
+        feats=np.float32([]).reshape((0,self.getVecLength()))
         i=0
         for imgPath,type in imgList:
             print("[lbp]:"+str(i))
@@ -48,7 +48,7 @@ class LBP:
             if mat is None:
                 continue
             feat=self.getFeature(mat)
-            feats=np.append(feats,feat.reshape((1,256)),axis=0)
+            feats=np.append(feats,feat.reshape((1,-1)),axis=0)
 
         np.save(r"temp/featVectLbp.npy", feats)
         return feats

@@ -10,7 +10,7 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.cluster import *
 from Features.LBP import LBP
 from Features.HOG import HOG
-
+from sklearn.decomposition import PCA
 
 def kMean(clusterNum):
     g=Graph(r"E:\ds2018")
@@ -108,7 +108,7 @@ trainTypes,trainDataSift,centers=sift.calcVectorForSvm(imgList,clusterNum,1)
 print("calc kmeans done")
 
 print("calc lbp")
-trainDataLbp=lbp.getFeatVecForSvm(imgList,1)
+trainDataLbp=lbp.getFeatVecForSvm(imgList,0)
 print("calc lbp done")
 
 print("calc hog")
@@ -123,9 +123,9 @@ print("train data shape"+str(trainData.shape))
 
 tuned_parameters=[
     {
-        'kernel':['rbf'],
-        'gamma':[1e-3,5e-3,10e-3],
-        'C':[1,3,5,10,15,100,1000]
+        'kernel':['poly'],
+        'gamma':[1e-2,1e-3,1e-4,1e-5],
+        'C':[1,3,5,10]
     }
 ]
 '''
@@ -136,8 +136,9 @@ tuned_parameters=[
     }
 ]
 '''
-#svm=GridSearchCV(SVC(decision_function_shape='ovo'),tuned_parameters,cv=5)
-svm=SVC(C=5,gamma=0.0001,kernel='linear')
+#svm=GridSearchCV(SVC(decision_function_shape='ovo',probability=True),tuned_parameters,cv=5)
+
+svm=SVC(kernel='poly',probability=True)
 svm.fit(trainData,trainTypes)
 #print(svm.best_params_)
 
@@ -168,4 +169,14 @@ for imgPath,type in testList:
     scoreType=np.append(scoreType,np.float32([type]).reshape((1,1)),axis=0)
 
 
-print(svm.score(scoreData,scoreType))
+correct=0
+probability=svm.predict_proba(scoreData)
+if probability is not None:
+    args=probability.argsort(axis=1)
+    for i in range(args.shape[0]):
+        if scoreType[i] in args[i][-5:]:
+            correct+=1
+
+    print("top 5 :"+str(correct/args.shape[0]))
+
+print("top 1 :"+str(svm.score(scoreData,scoreType)))
