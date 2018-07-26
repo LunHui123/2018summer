@@ -4,27 +4,9 @@
     <list default="true" id="81a0c996-f2d3-4720-bd07-7c18003464be" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Classifier/SVM.py" beforeDir="false" afterPath="$PROJECT_DIR$/Classifier/SVM.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classifier/temp/vocabulary/0.npy" beforeDir="false" afterPath="$PROJECT_DIR$/Classifier/temp/vocabulary/0.npy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classifier/temp/vocabulary/1.npy" beforeDir="false" afterPath="$PROJECT_DIR$/Classifier/temp/vocabulary/1.npy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classifier/temp/vocabulary/10.npy" beforeDir="false" afterPath="$PROJECT_DIR$/Classifier/temp/vocabulary/10.npy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classifier/temp/vocabulary/11.npy" beforeDir="false" afterPath="$PROJECT_DIR$/Classifier/temp/vocabulary/11.npy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classifier/temp/vocabulary/12.npy" beforeDir="false" afterPath="$PROJECT_DIR$/Classifier/temp/vocabulary/12.npy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classifier/temp/vocabulary/13.npy" beforeDir="false" afterPath="$PROJECT_DIR$/Classifier/temp/vocabulary/13.npy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classifier/temp/vocabulary/14.npy" beforeDir="false" afterPath="$PROJECT_DIR$/Classifier/temp/vocabulary/14.npy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classifier/temp/vocabulary/15.npy" beforeDir="false" afterPath="$PROJECT_DIR$/Classifier/temp/vocabulary/15.npy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classifier/temp/vocabulary/16.npy" beforeDir="false" afterPath="$PROJECT_DIR$/Classifier/temp/vocabulary/16.npy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classifier/temp/vocabulary/17.npy" beforeDir="false" afterPath="$PROJECT_DIR$/Classifier/temp/vocabulary/17.npy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classifier/temp/vocabulary/18.npy" beforeDir="false" afterPath="$PROJECT_DIR$/Classifier/temp/vocabulary/18.npy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classifier/temp/vocabulary/19.npy" beforeDir="false" afterPath="$PROJECT_DIR$/Classifier/temp/vocabulary/19.npy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classifier/temp/vocabulary/2.npy" beforeDir="false" afterPath="$PROJECT_DIR$/Classifier/temp/vocabulary/2.npy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classifier/temp/vocabulary/20.npy" beforeDir="false" afterPath="$PROJECT_DIR$/Classifier/temp/vocabulary/20.npy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classifier/temp/vocabulary/3.npy" beforeDir="false" afterPath="$PROJECT_DIR$/Classifier/temp/vocabulary/3.npy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classifier/temp/vocabulary/4.npy" beforeDir="false" afterPath="$PROJECT_DIR$/Classifier/temp/vocabulary/4.npy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classifier/temp/vocabulary/5.npy" beforeDir="false" afterPath="$PROJECT_DIR$/Classifier/temp/vocabulary/5.npy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classifier/temp/vocabulary/6.npy" beforeDir="false" afterPath="$PROJECT_DIR$/Classifier/temp/vocabulary/6.npy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classifier/temp/vocabulary/7.npy" beforeDir="false" afterPath="$PROJECT_DIR$/Classifier/temp/vocabulary/7.npy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classifier/temp/vocabulary/8.npy" beforeDir="false" afterPath="$PROJECT_DIR$/Classifier/temp/vocabulary/8.npy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classifier/temp/vocabulary/9.npy" beforeDir="false" afterPath="$PROJECT_DIR$/Classifier/temp/vocabulary/9.npy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Features/BOW.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Features/LBP.py" beforeDir="false" afterPath="$PROJECT_DIR$/Features/LBP.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Features/PCA.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Features/SIFT.py" beforeDir="false" afterPath="$PROJECT_DIR$/Features/SIFT.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -40,7 +22,7 @@
         <entry file="file://$PROJECT_DIR$/Graph/Graph.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="266">
-              <caret line="89" lean-forward="true" selection-start-line="89" selection-end-line="89" />
+              <caret line="89" selection-start-line="89" selection-end-line="89" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -48,11 +30,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SIFT.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SIFT.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Features/SIFT.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="206">
-              <caret line="36" column="44" selection-start-line="36" selection-start-column="44" selection-end-line="36" selection-end-column="44" />
+            <state relative-caret-position="-375">
+              <caret line="22" selection-start-line="22" selection-end-line="22" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -63,8 +45,8 @@
       <file leaf-file-name="GLCM.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Features/GLCM.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="19">
-              <caret line="4" selection-start-line="4" selection-end-line="4" />
+            <state relative-caret-position="76">
+              <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -75,8 +57,8 @@
       <file leaf-file-name="LBP.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Features/LBP.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="475">
-              <caret line="28" column="24" selection-start-line="28" selection-start-column="24" selection-end-line="28" selection-end-column="24" />
+            <state relative-caret-position="301">
+              <caret line="46" column="53" selection-start-line="46" selection-start-column="50" selection-end-line="46" selection-end-column="53" />
               <folding>
                 <element signature="e#0#27#0" expanded="true" />
               </folding>
@@ -84,26 +66,16 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PCA.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Features/PCA.py">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file leaf-file-name="SVM.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="SVM.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Classifier/SVM.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="760">
-              <caret line="94" column="57" selection-start-line="94" selection-start-column="57" selection-end-line="94" selection-end-column="57" />
+            <state relative-caret-position="187">
+              <caret line="122" column="8" selection-start-line="122" selection-start-column="8" selection-end-line="122" selection-end-column="8" />
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
               </folding>
             </state>
           </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BOW.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Features/BOW.py">
-          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file leaf-file-name="readme.txt" pinned="false" current-in-tab="false">
@@ -151,12 +123,12 @@
       <list>
         <option value="$PROJECT_DIR$/Main.py" />
         <option value="$PROJECT_DIR$/Features/PCA.py" />
-        <option value="$PROJECT_DIR$/Features/LBP.py" />
         <option value="$PROJECT_DIR$/Features/GLCM.py" />
         <option value="$PROJECT_DIR$/Graph/Graph.py" />
         <option value="$PROJECT_DIR$/Features/BOW.py" />
-        <option value="$PROJECT_DIR$/Classifier/SVM.py" />
         <option value="$PROJECT_DIR$/Features/SIFT.py" />
+        <option value="$PROJECT_DIR$/Features/LBP.py" />
+        <option value="$PROJECT_DIR$/Classifier/SVM.py" />
       </list>
     </option>
   </component>
@@ -253,6 +225,24 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
+    <configuration name="LBP" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="GraphDetect" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Features" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Features/LBP.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
     <configuration name="SVM" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="GraphDetect" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -275,10 +265,12 @@
       <item itemvalue="Python.Graph" />
       <item itemvalue="Python.GLCM" />
       <item itemvalue="Python.SVM" />
+      <item itemvalue="Python.LBP" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.SVM" />
+        <item itemvalue="Python.LBP" />
         <item itemvalue="Python.Graph" />
         <item itemvalue="Python.GLCM" />
       </list>
@@ -301,14 +293,14 @@
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22265625" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22265625" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="right" id="R Packages" order="3" />
       <window_info anchor="right" id="R Graphics" order="3" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50130206" side_tool="true" weight="0.32872927" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5019531" side_tool="true" weight="0.3577348" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4986979" visible="true" weight="0.3577348" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49804688" visible="true" weight="0.3577348" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.32872927" />
       <window_info id="Favorites" order="2" side_tool="true" />
@@ -607,32 +599,6 @@
     <entry file="file://$PROJECT_DIR$/Classifier/readme.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/Features/readme.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Features/LBP.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="475">
-          <caret line="28" column="24" selection-start-line="28" selection-start-column="24" selection-end-line="28" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#27#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Features/PCA.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Features/GLCM.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="4" selection-start-line="4" selection-end-line="4" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/codecs.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="174">
@@ -640,35 +606,61 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Features/BOW.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Classifier/SVM.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="760">
-          <caret line="94" column="57" selection-start-line="94" selection-start-column="57" selection-end-line="94" selection-end-column="57" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Graph/Graph.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="266">
-          <caret line="89" lean-forward="true" selection-start-line="89" selection-end-line="89" />
+          <caret line="89" selection-start-line="89" selection-end-line="89" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Features/PCA.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Features/BOW.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Features/readme.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/Features/SIFT.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="36" column="44" selection-start-line="36" selection-start-column="44" selection-end-line="36" selection-end-column="44" />
+        <state relative-caret-position="-375">
+          <caret line="22" selection-start-line="22" selection-end-line="22" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Features/LBP.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="301">
+          <caret line="46" column="53" selection-start-line="46" selection-start-column="50" selection-end-line="46" selection-end-column="53" />
+          <folding>
+            <element signature="e#0#27#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Features/GLCM.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Classifier/SVM.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="122" column="8" selection-start-line="122" selection-start-column="8" selection-end-line="122" selection-end-column="8" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
           </folding>
         </state>
       </provider>

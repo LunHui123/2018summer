@@ -3,11 +3,12 @@ from Features.SIFT import SIFT
 import numpy as np
 import cv2
 import os
-from sklearn.svm import SVC
+from sklearn.svm import SVC,SVR
 from libsvm.python.svmutil import *
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import GridSearchCV
 from sklearn.cluster import *
+from Features.LBP import LBP
 
 
 def kMean(clusterNum):
@@ -69,8 +70,8 @@ if not g.isDivided():
     g.divideTrainTest("ds2018")
 
 sift=SIFT()
-clusterNum=20
-
+clusterNum=50
+'''
 print("calc kmeans")
 centers=kMean(clusterNum)
 
@@ -97,6 +98,18 @@ for i in range(g.getTypeNum()):
 print(trainTypes.shape)
 trainTypes=trainTypes.astype(np.float32)
 
+'''
+print("calc kmeans")
+lbp=LBP([8],[1])
+imgList=g.getTrainSet()
+trainTypes,trainDataSift,centers=sift.calcVectorForSvm(imgList,clusterNum,0)
+print("calc kmeans done")
+print("calc lbp")
+trainDataLbp=lbp.getFeatVecForSvm(imgList,0)
+print("calc lbp done")
+trainData=np.append(trainDataSift,trainDataLbp,axis=1)
+print("train type shape:"+str(trainTypes.shape))
+print("train data shape"+str(trainData.shape))
 
 tuned_parameters=[
     {
@@ -105,26 +118,31 @@ tuned_parameters=[
         'C':[1,3,5,10,15,100,1000]
     }
 ]
-svm=GridSearchCV(SVC(decision_function_shape='ovo'),tuned_parameters,cv=5)
+#svm=GridSearchCV(SVC(decision_function_shape='ovo'),tuned_parameters,cv=5)
+#svm=SVR()
+svm=SVC()
 svm.fit(trainData,trainTypes)
-print(svm.best_params_)
+#print(svm.best_params_)
 
-svm=svm.best_estimator_
+#svm=svm.best_estimator_
 
-print("done")
+print("train done")
 
 #classify
 testList=g.getTestSet()
-scoreData=np.float32([]).reshape((0,clusterNum))
+scoreData=np.float32([]).reshape((0,clusterNum+256))
 scoreType=np.float32([]).reshape((0,1))
 for imgPath,type in testList:
+    print("[test]:"+imgPath +"  "+g.getTypeName(type))
     sift=SIFT()
     imgMatrix=g.getGreyGraph(imgPath)
     if imgMatrix is None:
         print("[test]:"+imgPath)
         continue
     siftFeature=sift.getFeature(imgMatrix)
-    featVec=calcFeatVec(siftFeature,centers[type],clusterNum)
+    featVecSift=sift.calcFeatVec(siftFeature,centers,clusterNum)
+    featVecLbp=lbp.getFeature(imgMatrix)
+    featVec=np.append(featVecSift.reshape((1,-1)),featVecLbp.reshape((1,-1)),axis=1)
     scoreData=np.append(scoreData,featVec,axis=0)
     scoreType=np.append(scoreType,np.float32([type]).reshape((1,1)),axis=0)
 
