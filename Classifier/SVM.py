@@ -7,6 +7,7 @@ from sklearn.svm import SVC
 from libsvm.python.svmutil import *
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import GridSearchCV
+from sklearn.cluster import *
 
 
 def kMean(clusterNum):
@@ -17,6 +18,7 @@ def kMean(clusterNum):
     sift=SIFT()
     centers=[]
     for i in range(g.getTypeNum()):
+        print("[kmeans]:"+str(i))
         imgPaths=g.getTrainSet(i)
         features=np.float32([]).reshape((0,128))
         for imgPath ,type in imgPaths:
@@ -27,16 +29,12 @@ def kMean(clusterNum):
             feature=sift.getFeature(imgMat)
             features=np.append(features,feature,axis=0)
 
-        criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 20, 0.1)
-        flags = cv2.KMEANS_RANDOM_CENTERS
-        print(i)
-        print(features.shape)
-        compactness, label, center = cv2.kmeans(features, clusterNum, None,criteria, 20, flags)
 
+        kmeans= KMeans(n_clusters=clusterNum).fit(features)
         filename=os.path.join(vocaDir,str(i)+".npy")
-        np.save(filename,(label,center))
+        np.save(filename,kmeans.cluster_centers_)
 
-        centers.append(center)
+        centers.append(kmeans.cluster_centers_)
 
     return centers
 
@@ -44,10 +42,11 @@ def calcFeatVec(features,centers,clusterNum):
     featVec = np.zeros((1, clusterNum))
     for i in range(0, features.shape[0]):
         fi = features[i]
-        diffMat = np.tile(fi, (clusterNum, 1)) - centers
+        y=np.arange(clusterNum)
+        mat,_=np.meshgrid(fi,y)
+        diffMat = mat - centers
         sqSum = (diffMat ** 2).sum(axis=1)
-        dist = sqSum ** 0.5
-        sortedIndices = dist.argsort()
+        sortedIndices = sqSum.argsort()
         idx = sortedIndices[0]  # index of the nearest center
         featVec[0][idx] += 1
     return featVec
@@ -101,12 +100,11 @@ trainTypes=trainTypes.astype(np.float32)
 
 tuned_parameters=[
     {
-        'kernel':['rbf','linear'],
+        'kernel':['rbf'],
         'gamma':[1e-1,0.05,1e-2,1e-3,1e-4],
-        'C':[1,3,4,5,6,7,10,15,100,1000]
+        'C':[1,3,5,10,15,100,1000]
     }
 ]
-scores=['precision','recall']
 svm=GridSearchCV(SVC(decision_function_shape='ovo'),tuned_parameters,cv=5)
 svm.fit(trainData,trainTypes)
 print(svm.best_params_)
