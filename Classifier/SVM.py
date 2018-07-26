@@ -5,6 +5,8 @@ import cv2
 import os
 from sklearn.svm import SVC
 from libsvm.python.svmutil import *
+from sklearn.model_selection import train_test_split
+from sklearn.model_selection import GridSearchCV
 
 
 def kMean(clusterNum):
@@ -75,7 +77,7 @@ centers=kMean(clusterNum)
 
 #centers=loadVoca()
 trainData=np.float32([]).reshape(0,clusterNum)
-trainTypes=np.int32([]).reshape(0,1)
+trainTypes=np.int32([])
 flag=False
 
 print("prepare trainData")
@@ -91,23 +93,32 @@ for i in range(g.getTypeNum()):
         feature=sift.getFeature(mat)
         featVec=calcFeatVec(feature,centers[type],clusterNum)
         trainData=np.append(trainData,featVec,axis=0)
-        trainTypes=np.append(trainTypes,np.int32([type]).reshape((1,1)),axis=0)
+        trainTypes=np.append(trainTypes,np.int32([type]))
 
 print(trainTypes.shape)
-#svm=cv2.ml.SVM_create()
-svm=SVC()
-trainTypes.reshape((-1,1))
 trainTypes=trainTypes.astype(np.float32)
+
+
+tuned_parameters=[
+    {
+        'kernel':['rbf','linear'],
+        'gamma':[1e-1,0.05,1e-2,1e-3,1e-4],
+        'C':[1,3,4,5,6,7,10,15,100,1000]
+    }
+]
+scores=['precision','recall']
+svm=GridSearchCV(SVC(decision_function_shape='ovo'),tuned_parameters,cv=5)
 svm.fit(trainData,trainTypes)
-#svm.save("svm.clf")
+print(svm.best_params_)
+
+svm=svm.best_estimator_
 
 print("done")
 
 #classify
-total=0
-correct=0
-
 testList=g.getTestSet()
+scoreData=np.float32([]).reshape((0,clusterNum))
+scoreType=np.float32([]).reshape((0,1))
 for imgPath,type in testList:
     sift=SIFT()
     imgMatrix=g.getGreyGraph(imgPath)
@@ -116,11 +127,8 @@ for imgPath,type in testList:
         continue
     siftFeature=sift.getFeature(imgMatrix)
     featVec=calcFeatVec(siftFeature,centers[type],clusterNum)
-    total+=1
-    pred=svm.predict(featVec)
-    if type==int(pred):
-        correct+=1
+    scoreData=np.append(scoreData,featVec,axis=0)
+    scoreType=np.append(scoreType,np.float32([type]).reshape((1,1)),axis=0)
 
-accu=correct/total
 
-print(accu*100)
+print(svm.score(scoreData,scoreType))
